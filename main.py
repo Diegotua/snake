@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 import constants
-
+import time
 
 class snake():
     def __init__(self,parent_window):
@@ -9,27 +9,35 @@ class snake():
         self.snake_body=pygame.image.load("image\circle.png")
         self.x=600
         self.y=300
+        self.direction="right"
     def draw(self):
         self.parent_window.fill(constants.BG_COLOR)    
         self.parent_window.blit(self.snake_body,(self.x,self.y))
         pygame.display.flip()
 
     def move_left(self):
-        self.x -=10
-        self.draw()
+        self.direction="left"
+        
     def move_right(self):
-        self.x +=10
-        self.draw()
+        self.direction="right"
+        
     def move_up(self):
-        self.y-=10
-        self.draw()
+        self.direction="up"
+        
     def move_down(self):
-        self.y+=10 
-        self.draw()   
-
-
-
-
+        self.direction="down"
+           
+       
+    def walk(self):
+        if self.direction=="left":
+            self.x-=10
+        if self.direction=="right":
+            self.x+=10    
+        if self.direction=="up":
+            self.y-=10
+        if self.direction=="down":
+            self.y+=10    
+        self.draw()
 class Game():
 
     def __init__(self):
@@ -63,7 +71,10 @@ class Game():
                     if event.key ==K_DOWN:
                         self.snake.move_down()                
                 elif event.type==QUIT:
-                    running=False        
+                    running=False 
+
+            self.snake.walk()
+            time.sleep(0.1)               
 game=Game()
 game.run()
 
