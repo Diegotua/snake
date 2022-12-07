@@ -13,6 +13,10 @@ class apple():
     def draw(self):
         self.parent_window.blit(self.image,(self.x,self.y))
         pygame.display.flip()
+    def move(self):
+        self.x=random.randint(24,776)
+        self.y=random.randint(24,576)
+
 
 
 
@@ -24,6 +28,10 @@ class snake():
         self.lenght=lenght
         self.x=[24]*lenght
         self.y=[24]*lenght
+    def increase_lenght(self):
+        self.lenght +=1
+        self.x.append(-1)
+        self.y.append(-1)
     def draw(self):
         self.parent_window.fill(constants.BG_COLOR) 
         for i in range(self.lenght):   
@@ -73,6 +81,32 @@ class Game():
 
         pygame.display.update()
 
+    def is_colision(self,x1,y1,x2,y2):
+        if x1 >=x2 and x1<x2 + constants.SNAKE_BODY:
+            if y1>=y2 and y1<y2 + constants.SNAKE_BODY:
+                return True
+        return False            
+    def play(self):
+        self.snake.walk()
+        self.apple.draw() 
+        self.display_score()
+        pygame.display.flip()
+        if self.is_colision(self.snake.x[0], self.snake.y[0], self.apple.x,self.apple.y):
+            self.snake.increase_lenght()
+            constants.score+=1
+            self.apple.move()
+           
+
+    def display_score(self):
+        font=pygame.font.Font("dd.ttf",44)
+        score=font.render(f'score:{constants.score}',True,(21, 96, 55 ))
+        self.window.blit(score,(10,10))
+
+
+
+
+
+
     def run(self):
         running=True
         while running:
@@ -93,9 +127,7 @@ class Game():
                         self.snake.move_down()                
                 elif event.type==QUIT:
                     running=False 
-
-            self.snake.walk()
-            self.apple.draw()
+            self.play()
             time.sleep(0.1)               
 game=Game()
 game.run()
