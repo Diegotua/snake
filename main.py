@@ -39,16 +39,17 @@ class snake():
         pygame.display.flip()
 
     def move_left(self):
-        self.direction="left"
-        
+        if self.direction != 'right':
+            self.direction = 'left'
     def move_right(self):
-        self.direction="right"
-        
+        if self.direction != 'left':
+            self.direction = 'right'
     def move_up(self):
-        self.direction="up"
-        
+        if self.direction != 'down':
+            self.direction = 'up'
     def move_down(self):
-        self.direction="down"
+        if self.direction != 'up':
+            self.direction = 'down'                        
            
        
     def walk(self):
@@ -93,8 +94,23 @@ class Game():
         pygame.display.flip()
         if self.is_colision(self.snake.x[0], self.snake.y[0], self.apple.x,self.apple.y):
             self.snake.increase_lenght()
-            constants.score+=1
+            constants.score+=1    
             self.apple.move()
+
+        for i in range(3,self.snake.lenght):
+            if self.is_colision(self.snake.x[0],self.snake.y[0],self.snake.x[i],self.snake.y[i]):
+                print("a")
+                self.show_game_over()
+    def show_game_over(self):
+        font = pygame.font.Font("dd.ttf",44)
+        message1=font.render(f"Game over, tu puntaje es {constants.score}",True,(54, 21, 96 ))
+        self.window.blit(message1,(400,300))
+        message2=font.render(f"presiona enter para continuar,o esc para salir",True,(54, 21, 96 ))
+        self.window.blit(message2,(400,350))
+        pygame.display.flip()
+
+                    
+
            
 
     def display_score(self):
