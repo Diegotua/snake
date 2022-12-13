@@ -3,6 +3,9 @@ from pygame.locals import *
 import constants
 import time
 import random
+from pygame import mixer
+
+
 
 class apple():
     def __init__(self,parent_window):
@@ -65,6 +68,8 @@ class snake():
             self.y[0]-=constants.SNAKE_BODY
         if self.direction=="down":
             self.y[0]+=constants.SNAKE_BODY
+        movement=mixer.Sound("sounds\ss.wav")
+        movement.play(0)    
         self.draw()
 class Game():
 
@@ -79,6 +84,9 @@ class Game():
         self.snake.draw()
         self.apple=apple(self.window,)
         self.apple.draw()
+        pygame.mixer.music.load("sounds\8-bit-game-music-122259.wav")
+        pygame.mixer.music.play(-1)
+        pygame.mixer.music.set_volume(0.5)
 
         pygame.display.update()
 
@@ -93,6 +101,8 @@ class Game():
         self.display_score()
         pygame.display.flip()
         if self.is_colision(self.snake.x[0], self.snake.y[0], self.apple.x,self.apple.y):
+            mordisco=mixer.Sound("sounds\coin.wav")
+            mordisco.play()
             self.snake.increase_lenght()
             constants.score+=1    
             self.apple.move()
@@ -107,6 +117,8 @@ class Game():
         self.window.blit(message1,(400,300))
         message2=font.render(f"presiona enter para continuar,o esc para salir",True,(54, 21, 96 ))
         self.window.blit(message2,(400,350))
+        choque=mixer.Sound("sounds\hurt_c_08-102842.wav")
+        choque.play()
         pygame.display.flip()
 
                     
