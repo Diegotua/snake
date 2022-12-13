@@ -44,15 +44,23 @@ class snake():
     def move_left(self):
         if self.direction != 'right':
             self.direction = 'left'
+            movement=mixer.Sound("sounds\ss.wav")
+            movement.play(0)  
     def move_right(self):
         if self.direction != 'left':
             self.direction = 'right'
+            movement=mixer.Sound("sounds\ss.wav")
+            movement.play(0)  
     def move_up(self):
         if self.direction != 'down':
             self.direction = 'up'
+            movement=mixer.Sound("sounds\ss.wav")
+            movement.play(0)  
     def move_down(self):
         if self.direction != 'up':
-            self.direction = 'down'                        
+            self.direction = 'down' 
+            movement=mixer.Sound("sounds\ss.wav")
+            movement.play(0)                         
            
        
     def walk(self):
@@ -68,8 +76,7 @@ class snake():
             self.y[0]-=constants.SNAKE_BODY
         if self.direction=="down":
             self.y[0]+=constants.SNAKE_BODY
-        movement=mixer.Sound("sounds\ss.wav")
-        movement.play(0)    
+
         self.draw()
 class Game():
 
@@ -114,9 +121,9 @@ class Game():
     def show_game_over(self):
         font = pygame.font.Font("dd.ttf",44)
         message1=font.render(f"Game over, tu puntaje es {constants.score}",True,(54, 21, 96 ))
-        self.window.blit(message1,(400,300))
-        message2=font.render(f"presiona enter para continuar,o esc para salir",True,(54, 21, 96 ))
-        self.window.blit(message2,(400,350))
+        self.window.blit(message1,(10,200))
+        message2=font.render(f"presiona enter para continuar o esc salir",True,(54, 21, 96 ))
+        self.window.blit(message2,(10,250))
         choque=mixer.Sound("sounds\hurt_c_08-102842.wav")
         choque.play()
         pygame.display.flip()
