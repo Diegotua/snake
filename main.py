@@ -118,6 +118,7 @@ class Game():
 
         for i in range(3,self.snake.lenght):
             if self.is_colision(self.snake.x[0],self.snake.y[0],self.snake.x[i],self.snake.y[i]):
+                
 
                 self.show_game_over()
     def show_game_over(self):
