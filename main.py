@@ -76,6 +76,7 @@ class snake():
             self.y[0]-=constants.SNAKE_BODY
         if self.direction=="down":
             self.y[0]+=constants.SNAKE_BODY
+           
 
         self.draw()
 class Game():
@@ -94,6 +95,7 @@ class Game():
         pygame.mixer.music.load("sounds\8-bit-game-music-122259.wav")
         pygame.mixer.music.play(-1)
         pygame.mixer.music.set_volume(0.5)
+        
 
         pygame.display.update()
 
@@ -112,11 +114,11 @@ class Game():
             mordisco.play()
             self.snake.increase_lenght()
             constants.score+=1    
-            self.apple.move()
+            self.apple.move()  
 
         for i in range(3,self.snake.lenght):
             if self.is_colision(self.snake.x[0],self.snake.y[0],self.snake.x[i],self.snake.y[i]):
-                print("a")
+
                 self.show_game_over()
     def show_game_over(self):
         font = pygame.font.Font("dd.ttf",44)
